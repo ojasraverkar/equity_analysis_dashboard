@@ -1,5 +1,4 @@
 import feedparser
-import re
 
 def get_news(symbol):
     query = symbol.replace('.NS', '')
