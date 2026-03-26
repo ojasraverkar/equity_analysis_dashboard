@@ -9,10 +9,16 @@ def display_ratios(ratios, pe):
     st.subheader("Key Ratios")
     col1, col2 = st.columns(2)
     with col1:
-        st.metric('P/E ratio', f"{pe:.2f}")
-        st.metric('Profit margin', f"{ratios.get('Profit Margin', 0):.2%}")
+        pe_display = f"{pe:.2f}" if pe else "N/A"
+        st.metric('P/E ratio', pe_display)
+        
+        profit_margin = ratios.get('Profit Margin') or 0
+        st.metric('Profit margin', f"{profit_margin:.2%}")
     with col2:
-        st.metric("ROE", f"{ratios.get('ROE', 0):.2%}")
-        st.metric("Debt/Equity", f"{ratios.get('Debt to Equity', 0):.2f}")
+        roe = ratios.get('ROE') or 0
+        st.metric("ROE", f"{roe:.2%}")
+        
+        debt_equity = ratios.get('Debt to Equity') or 0
+        st.metric("Debt/Equity", f"{debt_equity:.2f}")
 
 
