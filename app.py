@@ -84,6 +84,12 @@ with tab3:
         fig_macd = plot_multiline(df_technical[['MACD', 'Signal']].dropna(), "MACD and Signal", ['MACD', 'Signal'])
         st.plotly_chart(fig_macd, use_container_width=True)
 
+with tab4:
+    st.subheader("News")
+    for article in news:
+        st.markdown(f"**{article['title']}** \n{article['published']} \n[read more]({article['link']})")
+        st.markdown("---")
+    
 
 
     
