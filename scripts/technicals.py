@@ -11,12 +11,19 @@ def compute_rsi(series, period = 14):
 
 def compute_moving_averages(df, windows = [50, 200]):
     for w in windows:
-        df[f"SMA_{w}"] = df['Close'].rolling(window = w).mean()
+        if len(df) >= w:
+            df[f"SMA_{w}"] = df['Close'].rolling(window = w).mean()
+        else:
+            df[f'SMA_{w}'] = np.nan
     return df
 
 def compute_macd(df, fast = 12, slow = 26, signal = 9):
+    if len(df) < slow:
+        df['MACD'] = np.nan
+        df['Signal'] = np.nan
+        return df
     e1 = df['Close'].ewm(span = fast, adjust = False).mean()
-    e2 = df['Close'].ewm(span = fast, adjust = False).mean()
+    e2 = df['Close'].ewm(span = slow, adjust = False).mean()
     df['MACD'] = e1 - e2
     df['Signal'] = df['MACD'].ewm(span = signal, adjust = False).mean()
     return df
